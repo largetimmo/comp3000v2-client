@@ -1,13 +1,10 @@
 package SmarterMonitor.view;
 
+import SmarterMonitor.Main;
+import SmarterMonitor.controller.SystemController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -25,6 +22,10 @@ public class DialogWindow extends Pane{
     private Stage dialogStage;
     private String processName;
     private MainWindow mainWindow;
+    private SystemController systemController;
+    private Main main;
+    private int pid;
+    private Process process;
 
     public DialogWindow(){
 
@@ -43,6 +44,17 @@ public class DialogWindow extends Pane{
         this.mainWindow = mainWindow;
     }
 
+    public void setMain(Main main){
+        this.main = main;
+    }
+
+    public void setPid(int pid){
+        this.pid = pid;
+    }
+
+    public void setProcess(Process process){
+        this.process = process;
+    }
 
 
     @FXML
@@ -58,9 +70,13 @@ public class DialogWindow extends Pane{
     @FXML
     private void killProcess(){
         //TODO kill the process
-        int pid;
-        pid = mainWindow.getSelectionPID();
-        //System.out.println(pid);
+        //int pid;
+        //pid = mainWindow.getSelectionPID();
+        System.out.println(pid);
+        systemController = new SystemController();
+        //systemController.killProcess(pid);   //In Linux, this line shouldn't comment.  TODO
+        //main.deleteProcessData(mainWindow.getSelectionPro());
+        main.deleteProcessData(pid);
         dialogStage.close();
     }
 
