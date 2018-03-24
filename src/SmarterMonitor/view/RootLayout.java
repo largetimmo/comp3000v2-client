@@ -54,6 +54,7 @@ public class RootLayout {
             LoginDialog controller = loader.getController();
             controller.setLoginStage(loginStage);
             controller.setMainWindow(mainWindow);
+            controller.setMain(main);
             loginStage.showAndWait();
         }
         catch (IOException e) {

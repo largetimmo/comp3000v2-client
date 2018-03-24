@@ -1,25 +1,25 @@
 package SmarterMonitor.view;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import SmarterMonitor.Main;
 
 
-
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class MainWindow extends Pane {
@@ -41,6 +41,13 @@ public class MainWindow extends Pane {
     private TableColumn<Process, Float> cpu;
     @FXML
     private TextField searchField;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab initTab;
+
+    private ArrayList<Tab> tabArrayList = new ArrayList<Tab>();
+
 
     public MainWindow(){
 
@@ -53,6 +60,10 @@ public class MainWindow extends Pane {
         uGroup.setCellValueFactory(new PropertyValueFactory<Process,String >("owner"));
         memory.setCellValueFactory(new PropertyValueFactory<Process, String>("memory"));
         cpu.setCellValueFactory(new PropertyValueFactory<Process,Float>("cpu"));
+        tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> ov, Tab oldTab, Tab newTab) -> {
+            System.out.println("The current index of selection is "+ tabPane.getSelectionModel().getSelectedIndex());
+            main.setCurrentPos(tabPane.getSelectionModel().getSelectedIndex());
+        });
     }
 
     public void setFilter(SmarterMonitor.Main main){
@@ -133,5 +144,20 @@ public class MainWindow extends Pane {
             }
         }
         return false;
+    }
+
+
+
+    public void addNewTab(String name){
+        if (tabPane.getTabs().size() == 1 && tabPane.getTabs().get(0).getText().equals("N/A")){
+            tabArrayList.add(initTab);
+            tabPane.getTabs().get(0).setText(name);
+            tabPane.getSelectionModel().select(0);
+        }
+        else {
+            tabArrayList.add(new Tab());
+            tabArrayList.get(tabArrayList.size()-1).setText(name);
+            tabPane.getTabs().add(tabArrayList.get(tabArrayList.size()-1));
+        }
     }
 }

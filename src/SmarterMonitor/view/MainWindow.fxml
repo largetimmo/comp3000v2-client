@@ -10,7 +10,7 @@
         <HBox layoutX="595.0" layoutY="430.0" />
       <TabPane fx:id="tabPane" layoutX="22.0" layoutY="67.0" prefHeight="33.0" prefWidth="647.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="KEY" closable="false" text="N/A">
+          <Tab fx:id="initTab" closable="false" text="N/A">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>

@@ -15,6 +15,7 @@ import SmarterMonitor.view.Process;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,6 +27,8 @@ public class Main extends Application {
     TimerTask update;
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private ArrayList<Object> token = new ArrayList<Object>();
+    private int position=0;
 
     private ObservableList<Process> processData = FXCollections.observableArrayList();
 
@@ -83,6 +86,15 @@ public class Main extends Application {
         return null;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+
+    public void setCurrentPos(int pos){
+        position = pos;
+    }
+
     //Set the refresh rate
     public void setRate(int second,Timer mTimer){
         rate = second*1000;
@@ -114,13 +126,14 @@ public class Main extends Application {
 
         @Override
         public void run() {
-                String JSONStr;
+            String JSONStr;
             int selectedPid=0;
+            //String currToken = token.get(getPosition()).toString();//TODO the pos of TOKEN
             if (processData.size() != 0){
                 selectedPid = mainWindow.getSelectionPID();
             }
                 SystemController DATA = new SystemController();
-                JSONStr = DATA.getallprocesses_test();  //In Linux, this function should be DATA.getallprocesses() TODO
+                JSONStr = DATA.getallprocesses_test();  //In Linux, this function should be DATA.getallprocesses() TODO CHANGE and sent token
                 JSONStr = JSONStr.substring(10, JSONStr.length() - 1);
                 //Testing Code
                 //System.out.println("Test");
@@ -152,6 +165,7 @@ public class Main extends Application {
                 //System.out.println(processData);
                 //System.out.println("test");
             }
+
     }
 
     public ObservableList<Process> getProcessData(){
@@ -164,6 +178,13 @@ public class Main extends Application {
                 processData.remove(processData.get(i));
             }
         }
+    }
+
+    public void setToken(String token, String key){
+        this.token.add(token);
+        setCurrentPos(this.token.size()-1);
+        mainWindow.addNewTab(key);
+        getData();
     }
 
 

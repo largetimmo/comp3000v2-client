@@ -4,12 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="138.0" prefWidth="214.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SmarterMonitor.view.LoginDialog">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="214.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SmarterMonitor.view.LoginDialog">
    <children>
-      <TextField fx:id="keyField" layoutX="48.0" layoutY="18.0" prefHeight="27.0" prefWidth="143.0" promptText="User Key" />
-      <Label layoutX="15.0" layoutY="23.0" text="Key" />
-      <Button fx:id="loginButton" layoutX="135.0" layoutY="97.0" mnemonicParsing="false" onAction="#loginStep" prefHeight="27.0" prefWidth="59.0" text="Log In" />
-      <Label layoutX="15.0" layoutY="63.0" text="Password" />
-      <PasswordField fx:id="passwordField" layoutX="81.0" layoutY="56.0" prefHeight="27.0" prefWidth="110.0" promptText="User Password" />
+      <TextField fx:id="keyField" layoutX="51.0" layoutY="36.0" prefHeight="27.0" prefWidth="143.0" promptText="User Key" />
+      <Label layoutX="18.0" layoutY="41.0" text="Key" />
+      <Button fx:id="loginButton" layoutX="138.0" layoutY="115.0" mnemonicParsing="false" onAction="#loginStep" prefHeight="27.0" prefWidth="59.0" text="Log In" />
+      <Label layoutX="18.0" layoutY="81.0" text="Password" />
+      <PasswordField fx:id="passwordField" layoutX="84.0" layoutY="74.0" prefHeight="27.0" prefWidth="110.0" promptText="User Password" />
+      <Label fx:id="message" layoutX="10.0" layoutY="7.0" prefHeight="27.0" prefWidth="195.0" text="The Key or password is wrong" textFill="#f50707" visible="false" />
    </children>
 </AnchorPane>
