@@ -1,6 +1,8 @@
 package SmarterMonitor;
 
 import SmarterMonitor.controller.SystemController;
+import SmarterMonitor.socket.MessageHandler;
+import SmarterMonitor.socket.Socket;
 import SmarterMonitor.view.RootLayout;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -14,7 +16,11 @@ import SmarterMonitor.view.MainWindow;
 import SmarterMonitor.view.Process;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import javax.websocket.ClientEndpoint;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -189,6 +195,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        try {
+            Socket socket = new Socket(new URI("ws://127.0.0.1:8080/ws/remote"));
+            socket.setMessageHandler(new MessageHandler());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         launch(args);
     }
 }
