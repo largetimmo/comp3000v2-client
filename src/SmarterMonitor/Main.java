@@ -35,7 +35,7 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private ArrayList<Object> token = new ArrayList<Object>();
     private int position=0;
-
+    private Socket socket;
     private ObservableList<Process> processData = FXCollections.observableArrayList();
 
     @Override
@@ -43,9 +43,9 @@ public class Main extends Application {
 
         //mainWindow.init();
         this.primaryStage = primaryStage;
-
         this.primaryStage.setTitle("Smarter Monitor");
         this.primaryStage.show();
+        socket = new Socket(new URI("ws://127.0.0.1:8080/ws/client"));
         initRootLayout();
         mainWindow = setMainWindow();
 
@@ -64,6 +64,8 @@ public class Main extends Application {
             primaryStage.show();
             RootLayout controller = loader.getController();
             controller.setMain(this);
+            controller.setSocket(socket);
+
         }
         catch (IOException e){
             e.printStackTrace();
@@ -84,6 +86,7 @@ public class Main extends Application {
             MainWindow controller = loader.getController();
             //controller.setMain(this);
             controller.setFilter(this);
+
             return controller;
         }
         catch (IOException e){
@@ -186,21 +189,19 @@ public class Main extends Application {
         }
     }
 
-    public void setToken(String token, String key){
-        this.token.add(token);
-        setCurrentPos(this.token.size()-1);
-        mainWindow.addNewTab(key);
-        getData();
+
+
+
+    public void setNeedKill(int pid){
+        for (int i=0; i<processData.size();i++){
+            if (processData.get(i).getpID() == pid){
+                processData.get(i).setNeedKill(2);
+            }
+        }
     }
 
-
     public static void main(String[] args) {
-        try {
-            Socket socket = new Socket(new URI("ws://127.0.0.1:8080/ws/remote"));
-            socket.setMessageHandler(new MessageHandler());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+
         launch(args);
     }
 }

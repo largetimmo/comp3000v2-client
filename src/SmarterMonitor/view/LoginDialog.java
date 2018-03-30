@@ -1,6 +1,8 @@
 package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
+import SmarterMonitor.socket.Socket;
+import com.alibaba.fastjson.JSONObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -8,10 +10,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.json.JsonObject;
+
 public class LoginDialog {
     private Stage loginStage;
     private MainWindow mainWindow;
     private Main main;
+    private Socket socket;
 
     @FXML
     private TextField keyField;
@@ -32,6 +37,9 @@ public class LoginDialog {
     public void setMain(Main main){
         this.main = main;
     }
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
 
     @FXML
     private void loginStep(){
@@ -41,12 +49,14 @@ public class LoginDialog {
         key = keyField.getText();
         password = passwordField.getText();
         //TODO Call a object to get the token
-        if (true) { //TODO Change the true
-            main.setToken("Token",key);
-            loginStage.close();
-        }
-        else {
-            message.setVisible(true);
-        }
+        JSONObject message = new JSONObject();
+        JSONObject user = new JSONObject();
+        message.put("ACTION","LOGIN");
+        message.put("Target","");
+        user.put("UID",key);
+        user.put("PWD",password);
+        message.put("DATA",user);
+        socket.sendMessage(message.toString());
+
     }
 }

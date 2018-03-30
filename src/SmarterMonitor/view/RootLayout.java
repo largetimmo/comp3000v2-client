@@ -1,6 +1,7 @@
 package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
+import SmarterMonitor.socket.Socket;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,9 +15,14 @@ import java.io.IOException;
 public class RootLayout {
     MainWindow mainWindow;
     Main main;
+    private Socket socket;
 
     public void setMain(Main main){
         this.main =main;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 
     @FXML
@@ -55,6 +61,7 @@ public class RootLayout {
             controller.setLoginStage(loginStage);
             controller.setMainWindow(mainWindow);
             controller.setMain(main);
+            controller.setSocket(socket);
             loginStage.showAndWait();
         }
         catch (IOException e) {
