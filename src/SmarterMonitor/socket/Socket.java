@@ -44,8 +44,8 @@ public class Socket {
     public void setMessageHandler(MessageHandler messageHandler){
         this.messageHandler = messageHandler;
     }
-    public void sendMessage(String message){
-        session.getAsyncRemote().sendText(message);
+    public void sendMessage(String message) throws IOException {
+        session.getBasicRemote().sendText(message);
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -12,5 +13,6 @@
       <Label layoutX="18.0" layoutY="81.0" text="Password" />
       <PasswordField fx:id="passwordField" layoutX="84.0" layoutY="74.0" prefHeight="27.0" prefWidth="110.0" promptText="User Password" />
       <Label fx:id="message" layoutX="10.0" layoutY="7.0" prefHeight="27.0" prefWidth="195.0" text="The Key or password is wrong" textFill="#f50707" visible="false" />
+
    </children>
 </AnchorPane>

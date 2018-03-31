@@ -11,8 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.json.JsonObject;
+import java.io.IOException;
 
 public class LoginDialog {
+    public static LoginDialog instance = null;
+    public static LoginDialog getInstance(){
+        return instance;
+    }
     private Stage loginStage;
     private MainWindow mainWindow;
     private Main main;
@@ -27,6 +32,7 @@ public class LoginDialog {
 
     @FXML
     private void initialize() {
+        instance = this;
     }
     public void setLoginStage(Stage loginStage){
         this.loginStage = loginStage;
@@ -42,7 +48,7 @@ public class LoginDialog {
     }
 
     @FXML
-    private void loginStep(){
+    private void loginStep() throws IOException {
         String key;
         String password;
         String information;
@@ -58,5 +64,13 @@ public class LoginDialog {
         message.put("DATA",user);
         socket.sendMessage(message.toString());
 
+    }
+
+    public void close(){
+        loginStage.close();
+    }
+
+    public void showMessage(){
+        message.setVisible(true);
     }
 }
