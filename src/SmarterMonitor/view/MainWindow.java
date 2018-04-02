@@ -152,6 +152,8 @@ public class MainWindow extends Pane {
             tabArrayList.add(new Tab());
             tabArrayList.get(tabArrayList.size() - 1).setText(name);
             tabPane.getTabs().add(tabArrayList.get(tabArrayList.size() - 1));
+            tabPane.getSelectionModel().select(tabPane.getTabs().size()-1);
+            main.setCurrentPos(tabPane.getTabs().size()-1);
         }
     }
 

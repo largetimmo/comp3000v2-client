@@ -2,6 +2,7 @@ package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
 import SmarterMonitor.socket.Socket;
+import SmarterMonitor.socket.SocketHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,15 +16,13 @@ import java.io.IOException;
 public class RootLayout {
     MainWindow mainWindow;
     Main main;
-    private Socket socket;
+
 
     public void setMain(Main main){
         this.main =main;
     }
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
+
 
     @FXML
     private void setSetting(){
@@ -61,8 +60,28 @@ public class RootLayout {
             controller.setLoginStage(loginStage);
             controller.setMainWindow(mainWindow);
             controller.setMain(main);
-            controller.setSocket(socket);
             loginStage.showAndWait();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void setConnectServer(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("ConnectWindow.fxml"));
+            AnchorPane dialog = (AnchorPane) loader.load();
+            Stage connectStage = new Stage();
+            connectStage.setTitle("Connect Server");
+            connectStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(dialog);
+            connectStage.setScene(scene);
+            ConnectWindow controller = loader.getController();
+            controller.setConnectStage(connectStage);
+            controller.setMain(main);
+            connectStage.showAndWait();
         }
         catch (IOException e) {
             e.printStackTrace();

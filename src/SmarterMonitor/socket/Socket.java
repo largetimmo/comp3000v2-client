@@ -28,11 +28,16 @@ public class Socket {
     @OnOpen
     public void onOpen(Session session){
         this.session = session;
+        session.setMaxTextMessageBufferSize(3276800);
+        session.setMaxBinaryMessageBufferSize(3276800);
+        session.setMaxIdleTimeout(0);
     }
 
     @OnClose
-    public void onClose(Session session){
-        this.session = null;
+    public void onClose(CloseReason reason) {
+
+        System.out.println("Client closed"+reason.getCloseCode());
+
     }
 
     @OnMessage

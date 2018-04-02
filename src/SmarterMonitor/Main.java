@@ -3,6 +3,7 @@ package SmarterMonitor;
 import SmarterMonitor.controller.SystemController;
 import SmarterMonitor.socket.MessageHandler;
 import SmarterMonitor.socket.Socket;
+import SmarterMonitor.socket.SocketHandler;
 import SmarterMonitor.view.RootLayout;
 import com.alibaba.fastjson.JSONObject;
 import javafx.application.Application;
@@ -32,32 +33,41 @@ public class Main extends Application {
         return instance;
     }
     private MainWindow mainWindow = new MainWindow();
-    private int rate=15000;
+    private int rate=20000;
     Timer mTimer = new Timer();
     TimerTask update;
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ArrayList<Object> token = new ArrayList<Object>();
     private int position = -1;
-    private Socket socket;
+    MessageHandler messageHandler;
     private ObservableList<Process> processData = FXCollections.observableArrayList();
     ArrayList<Process> checkedProcess = new ArrayList<Process>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         //mainWindow.init();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Smarter Monitor");
         this.primaryStage.show();
-        socket = new Socket(new URI("ws://192.168.0.20:8080/ws/client"));
-        MessageHandler messageHandler = new MessageHandler();
-        socket.setMessageHandler(messageHandler);
         initRootLayout();
         mainWindow = setMainWindow();
         instance = this;
 
 
+    }
+
+    public boolean setSocket(String address, String port) {
+        address = "ws://"+address+":"+port+"/ws/client";
+        try{
+            SocketHandler.getInstance().init(new URI(address));
+        }
+        catch (Exception e){
+            return false;
+        }
+        messageHandler = new MessageHandler();
+        SocketHandler.getInstance().setMessageHandler(messageHandler);
+        return true;
     }
 
     //Init the root layout
@@ -72,8 +82,6 @@ public class Main extends Application {
             primaryStage.show();
             RootLayout controller = loader.getController();
             controller.setMain(this);
-            controller.setSocket(socket);
-
         }
         catch (IOException e){
             e.printStackTrace();
@@ -94,7 +102,6 @@ public class Main extends Application {
             MainWindow controller = loader.getController();
             //controller.setMain(this);
             controller.setFilter(this);
-
             return controller;
         }
         catch (IOException e){
@@ -114,6 +121,10 @@ public class Main extends Application {
         mTimer = new Timer();
         update = new DoInBackgroud();
         mTimer.schedule(update,1,rate);
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     //Set the refresh rate
@@ -168,11 +179,12 @@ public class Main extends Application {
             }
 
             try {
-                socket.sendMessage(message.toString());
+                SocketHandler.getInstance().sendMessage(message.toString());
+                System.out.println("Sent Command: "+message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            processData.removeAll(processData);
+            //processData.removeAll(processData);
             //JSONStr = DATA.getallprocesses_test();  //In Linux, this function should be DATA.getallprocesses() TODO CHANGE and sent token
                 //JSONStr = JSONStr.substring(10, JSONStr.length() - 1);
                 //Testing Code
@@ -249,7 +261,8 @@ public class Main extends Application {
     }
 
     public void setProcessData(ObservableList<Process> processData) {
-        this.processData = processData;
+        this.processData.removeAll(this.processData);
+        this.processData.addAll(processData);
     }
 
     public ArrayList<Process> getCheckedProcess() {

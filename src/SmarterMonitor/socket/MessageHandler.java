@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class MessageHandler implements Socket.MessageHandler {
     @Override
     public void handle(String message) {
+        System.out.println(message);
         JSONObject jsonMessage = JSONObject.parseObject(message);
         Main main = Main.getInstance();
         LoginDialog loginDialog = LoginDialog.getInstance();
@@ -39,12 +40,13 @@ public class MessageHandler implements Socket.MessageHandler {
         }
 
         if (jsonMessage.get("ACTION").toString().equals("GETPROCES")) {
+            System.out.println(jsonMessage);
             ObservableList<Process> processData = FXCollections.observableArrayList();
             JSONArray jsonArray = JSONArray.parseArray(jsonMessage.get("DATA").toString().substring(10, jsonMessage.get("DATA").toString().length() - 1));
             Object[] os = jsonArray.toArray();
             int num = -1;
             int selectedPid = 0;
-            if (processData.size() != 0) {
+            if (main.getProcessData().size() != 0) {
                 selectedPid = mainWindow.getSelectionPID();
             }
             for (int i = 0; i < os.length; i++) {

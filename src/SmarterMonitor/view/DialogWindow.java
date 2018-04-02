@@ -2,6 +2,8 @@ package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
 import SmarterMonitor.controller.SystemController;
+import SmarterMonitor.socket.SocketHandler;
+import com.alibaba.fastjson.JSONObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -68,12 +70,19 @@ public class DialogWindow extends Pane{
     }
 
     @FXML
-    private void killProcess(){
+    private void killProcess() throws IOException {
         //TODO kill the process
         //int pid;
         //pid = mainWindow.getSelectionPID();
         System.out.println(pid);
-        systemController = new SystemController();
+        JSONObject message = new JSONObject();
+
+        int pos = main.getPosition();
+        message.put("ACTION","KILL");
+        message.put("TARGET",pos);
+        message.put("DATA",pid);
+        System.out.println("Kill: " + message);
+        SocketHandler.getInstance().sendMessage(message.toString());
         //systemController.killProcess(pid);   //In Linux, this line shouldn't comment.  TODO
         //main.deleteProcessData(mainWindow.getSelectionPro());
         main.deleteProcessData(pid);

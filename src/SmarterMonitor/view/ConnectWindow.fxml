@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="124.0" prefWidth="523.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SmarterMonitor.view.ConnectWindow">
+   <children>
+      <Label layoutX="29.0" layoutY="45.0" text="Server Address" />
+      <TextField fx:id="address" layoutX="131.0" layoutY="40.0" />
+      <Label layoutX="64.0" layoutY="88.0" text="Port" />
+      <TextField fx:id="port" layoutX="131.0" layoutY="83.0" />
+      <Button fx:id="connectServer" layoutX="387.0" layoutY="54.0" mnemonicParsing="false" onAction="#getInfo" text="Connect Server" />
+      <Text fx:id="message" fill="#fc0808" layoutX="191.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong Address or Port" textAlignment="CENTER" visible="false" />
+   </children>
+</AnchorPane>

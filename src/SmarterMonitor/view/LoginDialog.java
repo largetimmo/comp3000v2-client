@@ -2,6 +2,7 @@ package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
 import SmarterMonitor.socket.Socket;
+import SmarterMonitor.socket.SocketHandler;
 import com.alibaba.fastjson.JSONObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -21,7 +22,7 @@ public class LoginDialog {
     private Stage loginStage;
     private MainWindow mainWindow;
     private Main main;
-    private Socket socket;
+
 
     @FXML
     private TextField keyField;
@@ -43,9 +44,7 @@ public class LoginDialog {
     public void setMain(Main main){
         this.main = main;
     }
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
+
 
     @FXML
     private void loginStep() throws IOException {
@@ -62,7 +61,7 @@ public class LoginDialog {
         user.put("UID",key);
         user.put("PWD",password);
         message.put("DATA",user);
-        socket.sendMessage(message.toString());
+        SocketHandler.getInstance().sendMessage(message.toString());
 
     }
 
