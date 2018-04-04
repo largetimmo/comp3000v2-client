@@ -38,7 +38,7 @@ public class AutoCheckDialogWindow {
 
     public void setProcessName(String processName) {
         this.processName = processName;
-        textAlret.setText("The CPU usage of " + processName + " is more than 150. Do you want to kill it?");
+        textAlret.setText("The CPU usage of " + processName + " is more than 80. Do you want to kill it?");
     }
 
     public void setMainWindow(MainWindow mainWindow) {
@@ -78,13 +78,14 @@ public class AutoCheckDialogWindow {
 
         int pos = main.getPosition();
         message.put("ACTION", "KILL");
-        message.put("TARGET", pos);
+        message.put("TARGET",main.getCurrToken(pos));
         message.put("DATA", pid);
         System.out.println("Kill: " + message);
         SocketHandler.getInstance().sendMessage(message.toString());
         //systemController.killProcess(pid);   //In Linux, this line shouldn't comment.  TODO
         //main.deleteProcessData(mainWindow.getSelectionPro());
         main.deleteProcessData(pid);
+        mainWindow.setExistDialog(false);
         dialogStage.close();
     }
 }

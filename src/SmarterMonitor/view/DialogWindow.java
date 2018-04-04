@@ -79,7 +79,7 @@ public class DialogWindow extends Pane{
 
         int pos = main.getPosition();
         message.put("ACTION","KILL");
-        message.put("TARGET",pos);
+        message.put("TARGET",main.getCurrToken(pos));
         message.put("DATA",pid);
         System.out.println("Kill: " + message);
         SocketHandler.getInstance().sendMessage(message.toString());

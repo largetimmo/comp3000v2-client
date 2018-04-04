@@ -49,6 +49,12 @@ public class MessageHandler implements Socket.MessageHandler {
             if (main.getProcessData().size() != 0) {
                 selectedPid = mainWindow.getSelectionPID();
             }
+            checkedProcess.clear();
+            for (int i = 0; i< main.getProcessData().size(); i++){
+                if (main.getProcessData().get(i).getNeedKill() == 2){
+                    checkedProcess.add(main.getProcessData().get(i));
+                }
+            }
             for (int i = 0; i < os.length; i++) {
                 JSONObject jsonObject = JSONObject.parseObject(os[i].toString());
                 String checkMemory = jsonObject.get("memory").toString().substring(jsonObject.get("memory").toString().length() - 3, jsonObject.get("memory").toString().length() - 1);
@@ -78,6 +84,7 @@ public class MessageHandler implements Socket.MessageHandler {
                 @Override
                 public void run() {
                     mainWindow.checkProcess();
+
                 }
             });
         }
