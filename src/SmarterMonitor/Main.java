@@ -33,7 +33,7 @@ public class Main extends Application {
         return instance;
     }
     private MainWindow mainWindow = new MainWindow();
-    private int rate=20000;
+    private int rate=5000;
     Timer mTimer = new Timer();
     TimerTask update;
     private Stage primaryStage;
@@ -170,7 +170,7 @@ public class Main extends Application {
             JSONObject message = new JSONObject();
             message.put("ACTION","GETPROCES");
             message.put("TARGET",currToken);
-            message.put("DATA","");
+            message.put("DATA",rate);
             checkedProcess.clear();
             for (int i = 0; i< processData.size(); i++){
                 if (processData.get(i).getNeedKill() == 2){
@@ -223,6 +223,12 @@ public class Main extends Application {
             //Testing Code
                 //System.out.println(processData);
                 //System.out.println("test");
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    mainWindow.checkProcess();
+                }
+            });
             }
 
     }

@@ -55,7 +55,7 @@ public class MessageHandler implements Socket.MessageHandler {
                 boolean isAdd = false;
                 if (checkMemory.equals("kB") && isAdd == false) {
                     for (int j = 0; j < checkedProcess.size(); j++) {
-                        if (Integer.parseInt(jsonObject.get("pid").toString()) == checkedProcess.get(j).getpID() && Float.parseFloat(jsonObject.get("cpu").toString()) >= 150) {
+                        if (Integer.parseInt(jsonObject.get("pid").toString()) == checkedProcess.get(j).getpID() && Float.parseFloat(jsonObject.get("cpu").toString()) >= 80) {
                             processData.add(new Process(jsonObject.get("name").toString(), Integer.parseInt(jsonObject.get("pid").toString()), jsonObject.get("owner").toString() + "/" + jsonObject.get("ownergrp").toString(), jsonObject.get("memory").toString(), Float.parseFloat(jsonObject.get("cpu").toString()), 2));
                             num++;
                             isAdd = true;

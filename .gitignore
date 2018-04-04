@@ -6,3 +6,4 @@ jquery*
 bootstrap*
 test/
 target/
+*.MF
