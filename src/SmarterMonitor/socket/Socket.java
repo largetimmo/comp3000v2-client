@@ -53,4 +53,7 @@ public class Socket {
         session.getBasicRemote().sendText(message);
     }
 
+    public Session getSession() {
+        return session;
+    }
 }

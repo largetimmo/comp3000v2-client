@@ -1,6 +1,7 @@
 package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
+import SmarterMonitor.socket.SocketHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -36,7 +37,8 @@ public class ConnectWindow {
 
     @FXML
     private void getInfo() throws URISyntaxException {
-        if (main.setSocket(address.getText().toString(),port.getText().toString()) == false){
+        main.setSocket(address.getText().toString(),port.getText().toString());
+        if (SocketHandler.getInstance().getSocket().getSession() == null){
             message.setVisible(true);
         }
         else {

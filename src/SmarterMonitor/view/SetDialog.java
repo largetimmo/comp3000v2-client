@@ -2,8 +2,10 @@ package SmarterMonitor.view;
 
 import SmarterMonitor.Main;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
+
 
 
 
@@ -15,6 +17,8 @@ public class SetDialog {
 
     @FXML
     private TextField rateSecond;
+    @FXML
+    Text message;
 
     public SetDialog(){
 
@@ -36,6 +40,10 @@ public class SetDialog {
     }
     @FXML
     private void getRate(){
+        if (Integer.parseInt(rateSecond.getText().trim().toString()) > 30){
+            message.setVisible(true);
+            return;
+        }
         main.setRate(Integer.parseInt(rateSecond.getText().trim().toString()),main.getNewTimer());
         setStage.close();
     }

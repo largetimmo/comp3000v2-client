@@ -18,6 +18,7 @@ public class Process {
         this.cpu = new SimpleFloatProperty(cpu);
         if (cpu > 80){
             this.needKill=1;
+            System.out.println(pid);
         }
         else {
             this.needKill = 0;

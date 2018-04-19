@@ -158,8 +158,9 @@ public class Main extends Application {
         @Override
         public void run() {
             //String JSONStr;
-            System.out.println("Testing Get");
-            System.out.println(position);
+            /* Testiong */
+            //System.out.println("Testing Get");
+            //System.out.println(position);
             if (position == -1) {
                 return;
             }

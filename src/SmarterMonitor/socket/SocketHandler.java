@@ -29,7 +29,8 @@ public class SocketHandler {
 
 
         public void init(URI uri){
-            socket = new Socket(uri);
+                    socket = new Socket(uri);
+
         }
 
         public void sendMessage(String message) throws IOException {
@@ -39,4 +40,9 @@ public class SocketHandler {
         public void setMessageHandler(MessageHandler messageHandler){
                 socket.setMessageHandler(messageHandler);
         }
+
+        public Socket getSocket() {
+                return socket;
+        }
+
 }
